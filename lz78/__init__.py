@@ -1,5 +1,5 @@
 
-def compress(input_data):
+def encode(input_data):
     # [(pointer, newchar, representation)]
     dictionary = []
 
@@ -35,3 +35,30 @@ def find(s, dict) -> int:
         if triple[2] == s:
             return dict.index(triple) + 1
     return 0
+
+
+def decode(input_data):
+    pairs = pairwise(input_data)
+    result = ""
+
+    for pointer, newchar in pairs:
+        if(pointer == 0):
+            result += newchar
+        else:
+            result += "{}{}".format(get_representation(pointer, pairs), newchar if newchar is not None else "")
+
+    return result
+
+
+def get_representation(pointer, pairs):
+    new_pair = pairs[pointer - 1]
+    if new_pair[0] == 0:
+        return new_pair[1]
+    else:
+        return get_representation(new_pair[0], pairs) + new_pair[1]
+
+
+def pairwise(iterable):
+    "s -> (s0, s1), (s2, s3), (s4, s5), ..."
+    a = iter(iterable)
+    return list(zip(a, a))
