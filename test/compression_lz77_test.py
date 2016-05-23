@@ -30,8 +30,7 @@ class TestCompressionLZ77(TestCase):
                     0, 0, 'r',
                     4, 1, 'k',
                     2, 4, None,
-                    4, 3, None,
-                    None, None, None]
+                    4, 3, None]
 
         result = lz77.encode(data, bufsize, lookahead_bufsize)
 
