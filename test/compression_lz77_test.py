@@ -29,7 +29,7 @@ class TestCompressionLZ77(TestCase):
                     0, 0, 'b',
                     0, 0, 'r',
                     4, 1, 'k',
-                    2, 5, None,
+                    2, 4, None,
                     4, 3, None,
                     None, None, None]
 
