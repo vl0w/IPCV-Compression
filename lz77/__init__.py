@@ -36,7 +36,6 @@ def encode(input_data, buffer_size, lookahead_bufsize):
         encoded_triples.append(last_found_triple)
         global_index += lookahead_index
 
-
     result = []
     for triple in encoded_triples:
         result.append(triple[0])
@@ -44,3 +43,27 @@ def encode(input_data, buffer_size, lookahead_bufsize):
         result.append(triple[2])
 
     return result
+
+
+def decode(input_data, bufsize):
+    triples = grouped(input_data, 3)
+    result = ""
+
+    for item_index, item_amount, char in triples:
+        print("({},{},{})".format(item_index, item_amount, char))
+        if item_index > 0:
+            n = (item_index - bufsize - 1)
+            new_chars = (result[n:])[:item_amount]
+            print(new_chars)
+            result += new_chars
+
+        if char is not None:
+            print(char)
+            result += char
+    print(result)
+    return result
+
+
+def grouped(iterable, n):
+    "s -> (s0,s1,s2,...sn-1), (sn,sn+1,sn+2,...s2n-1), (s2n,s2n+1,s2n+2,...s3n-1), ..."
+    return list(zip(*[iter(iterable)] * n))
