@@ -3,7 +3,7 @@ from setuptools import setup
 setup(name='ipcv_compression',
       version='0.0.1',
       description='Compression Excerise.',
-      url='TODO',
+      url='https://github.com/vl0w/IPCV-Compression',
       author='Michael Zurmühle, Jonas Hansen',
       author_email='michael.zurmuehle@stud.hslu.ch; jonas.hansen@stud.hslu.ch',
       license='MIT',
