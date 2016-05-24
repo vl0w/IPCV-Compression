@@ -1,8 +1,9 @@
 import copy
 
 
-def encode(input_data, dictionary=["a", "b", "c"]):
-    result = []
+def encode(input_data, base_dictionary=["a", "b", "c"]):
+    encodings = []
+    dictionary = copy.copy(base_dictionary)
 
     current_word = ""
     main_index = 0
@@ -12,26 +13,28 @@ def encode(input_data, dictionary=["a", "b", "c"]):
             current_word = input_data[main_index:sub_index + 1]
             sub_index += 1
 
-        if sub_index == len(input_data):
-            word_to_append = current_word
-        else:
-            # This is the last word. Simply append it to the encoded result
-            word_to_append = current_word[:-1]  # Append the previous word to the encoded list
-            dictionary.append(current_word)  # Append current word to dictionary
+        if current_word not in dictionary:
+            dictionary.append(current_word)
 
-        index_in_dictionary = dictionary.index(word_to_append) + 1
-        result.append(index_in_dictionary)
+        if sub_index == len(input_data):  # End of string
+            word_to_append = current_word
+        else:  # Append previous word to encoded string
+            word_to_append = current_word[:-1]
+
+        try:
+            index_in_dictionary = dictionary.index(word_to_append) + 1
+        except ValueError:
+            raise ValueError("Your base dictionary may be missing the character '{0}'".format(current_word))
+
+        encodings.append(index_in_dictionary)
 
         main_index += len(word_to_append)
 
-    return result
+    return encodings
 
 
-basic_dictionary = ["a", "b", "c"]
-
-
-def decode(input_data):
-    dictionary = copy.copy(basic_dictionary)
+def decode(input_data, base_dictionary=["a", "b", "c"]):
+    dictionary = copy.copy(base_dictionary)
     dictionary.insert(0, None)
 
     result_entries = []
@@ -44,7 +47,5 @@ def decode(input_data):
             result_entries.append(dictionary[next_index])
             if len(result_entries) > 1:
                 dictionary.append(''.join([result_entries[-2], (result_entries[-1])[0]]))
-
-    print("dictionary: {}".format(dictionary))
 
     return ''.join(result_entries)
