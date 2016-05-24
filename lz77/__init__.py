@@ -26,13 +26,16 @@ def encode(input_data, buffer_size, lookahead_bufsize):
         for lookahead_index in range(1, len(lookahead_buffer) + 1):
             search_string = lookahead_buffer[:lookahead_index]
             if search_string in buffer:
-                string_found_in_buffer_at_index = buffer.index(search_string) + 1 - len(buffer) + buffer_size
+                string_found_in_buffer_at_index = buffer.rfind(search_string) + 1 - len(buffer) + buffer_size
                 last_found_triple[0] = string_found_in_buffer_at_index
                 last_found_triple[1] = lookahead_index
             else:
                 break
-        if lookahead_index < len(lookahead_buffer):
+
+        last_not_found_character = search_string[-1:]
+        if lookahead_index < len(lookahead_buffer) or last_not_found_character not in buffer:
             last_found_triple[2] = search_string[-1:]
+
         encoded_triples.append(last_found_triple)
         global_index += lookahead_index
 
@@ -57,6 +60,7 @@ def decode(input_data, bufsize):
 
         if char is not None:
             result += char
+
     return result
 
 
