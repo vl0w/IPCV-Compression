@@ -50,17 +50,13 @@ def decode(input_data, bufsize):
     result = ""
 
     for item_index, item_amount, char in triples:
-        print("({},{},{})".format(item_index, item_amount, char))
         if item_index > 0:
             n = (item_index - bufsize - 1)
             new_chars = (result[n:])[:item_amount]
-            print(new_chars)
             result += new_chars
 
         if char is not None:
-            print(char)
             result += char
-    print(result)
     return result
 
 
