@@ -11,12 +11,15 @@ decoded = lz78.decode(encoded)
 print("LZ78 Encoded: {0}".format(encoded))
 print("LZ78 Decoded: {0}".format(decoded))
 
-encoded = lzw.encode("itty bitty bit bin")
-decoded = lzw.decode(encoded)
+lzw_base_dictionary = ["i", "t", "y", " ", "b", "n"]
+encoded = lzw.encode("itty bitty bit bin", base_dictionary=lzw_base_dictionary)
+decoded = lzw.decode(encoded, base_dictionary=lzw_base_dictionary)
 print("LZW 'itty bitty bit bin' Encoded: {0}".format(encoded))
 print("LZW 'itty bitty bit bin' Decoded: {0}".format(decoded))
 
-encoded = lzw.encode("itty bitty nitty grrritty bit bin")
-decoded = lzw.decode(encoded)
+
+lzw_base_dictionary = ["i", "t", "y", " ", "b", "n", "r", "g"]
+encoded = lzw.encode("itty bitty nitty grrritty bit bin", base_dictionary=lzw_base_dictionary)
+decoded = lzw.decode(encoded, base_dictionary=lzw_base_dictionary)
 print("LZW 'itty bitty nitty grrritty bit bin' Encoded: {0}".format(encoded))
 print("LZW 'itty bitty nitty grrritty bit bin' Decoded: {0}".format(decoded))
